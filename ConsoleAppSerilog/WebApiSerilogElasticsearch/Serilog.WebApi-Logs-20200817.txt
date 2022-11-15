@@ -1,0 +1,40 @@
+2020-08-17 13:02:25.552 -05:00 [Verbose]  IEnumerable<WeatherForecast> Get() (Trace)
+2020-08-17 13:02:25.636 -05:00 [Debug]  IEnumerable<WeatherForecast> Get() (Debug)
+2020-08-17 13:02:25.640 -05:00 [Information]  IEnumerable<WeatherForecast> Get() (Information)
+2020-08-17 13:02:25.644 -05:00 [Warning]  IEnumerable<WeatherForecast> Get() (Warning)
+2020-08-17 13:02:25.676 -05:00 [Error]  IEnumerable<WeatherForecast> Get() (Error)
+2020-08-17 13:02:25.681 -05:00 [Fatal]  IEnumerable<WeatherForecast> Get() (Fatal)
+2020-08-17 13:02:25.687 -05:00 [Error] ["WeatherForecast:Get() Request", "ClassARun()Request"] RequestManager (Error): RequestManager Log..
+2020-08-17 13:02:25.698 -05:00 [Fatal] ["WeatherForecast:Get() Request", "ClassARun()Request"] RequestManager (Fatal): RequestManager Log..
+2020-08-17 13:02:25.706 -05:00 [Error] ["WeatherForecast:Get() Request", "ClassARun()Request"] RequestHandler (Error): RequestHandler Log..
+2020-08-17 13:02:25.713 -05:00 [Fatal] ["WeatherForecast:Get() Request", "ClassARun()Request"] RequestHandler (Fatal): RequestHandler Log..
+2020-08-17 13:02:25.752 -05:00 [Information]  "/weatherforecast" "GET" code took 182 ms.
+2020-08-17 13:13:52.310 -05:00 [Verbose]  IEnumerable<WeatherForecast> Get() (Trace)
+2020-08-17 13:13:52.385 -05:00 [Debug]  IEnumerable<WeatherForecast> Get() (Debug)
+2020-08-17 13:13:52.391 -05:00 [Information]  IEnumerable<WeatherForecast> Get() (Information)
+2020-08-17 13:13:52.398 -05:00 [Warning]  IEnumerable<WeatherForecast> Get() (Warning)
+2020-08-17 13:13:52.427 -05:00 [Error]  IEnumerable<WeatherForecast> Get() (Error)
+2020-08-17 13:13:52.435 -05:00 [Fatal]  IEnumerable<WeatherForecast> Get() (Fatal)
+2020-08-17 13:13:52.440 -05:00 [Error] ["WeatherForecast:Get() Request", "ClassARun()Request"] RequestManager (Error): RequestManager Log..
+2020-08-17 13:13:52.449 -05:00 [Fatal] ["WeatherForecast:Get() Request", "ClassARun()Request"] RequestManager (Fatal): RequestManager Log..
+2020-08-17 13:13:52.456 -05:00 [Error] ["WeatherForecast:Get() Request", "ClassARun()Request"] RequestHandler (Error): RequestHandler Log..
+2020-08-17 13:13:52.462 -05:00 [Fatal] ["WeatherForecast:Get() Request", "ClassARun()Request"] RequestHandler (Fatal): RequestHandler Log..
+2020-08-17 13:14:01.652 -05:00 [Error]  CRITICAL ERROR!!! Testing Exception Handler -- "aa9bd893-0653-4e9e-ad80-de915fe7ee63".
+System.Exception: Testing Exception Handler
+   at WebApiSerilogElasticsearch.Controllers.WeatherForecastController.Get() in C:\USERDATA\GIT\Development\ConsoleAppSerilog\WebApiSerilogElasticsearch\Controllers\WeatherForecastController.cs:line 49
+   at lambda_method(Closure , Object , Object[] )
+   at Microsoft.Extensions.Internal.ObjectMethodExecutor.Execute(Object target, Object[] parameters)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ActionMethodExecutor.SyncObjectResultExecutor.Execute(IActionResultTypeMapper mapper, ObjectMethodExecutor executor, Object controller, Object[] arguments)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeActionMethodAsync()
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeNextActionFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Rethrow(ActionExecutedContextSealed context)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.Next(State& next, Scope& scope, Object& state, Boolean& isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ControllerActionInvoker.InvokeInnerFilterAsync()
+--- End of stack trace from previous location where exception was thrown ---
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeFilterPipelineAsync>g__Awaited|19_0(ResourceInvoker invoker, Task lastTask, State next, Scope scope, Object state, Boolean isCompleted)
+   at Microsoft.AspNetCore.Mvc.Infrastructure.ResourceInvoker.<InvokeAsync>g__Awaited|17_0(ResourceInvoker invoker, Task task, IDisposable scope)
+   at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
+   at Microsoft.AspNetCore.Authorization.AuthorizationMiddleware.Invoke(HttpContext context)
+   at Platform.Logging.Api.Middleware.ApiExceptionMiddleware.Invoke(HttpContext context) in C:\USERDATA\GIT\Development\ConsoleAppSerilog\Platform.Logging.Api\Middleware\ApiExceptionMiddleware.cs:line 28

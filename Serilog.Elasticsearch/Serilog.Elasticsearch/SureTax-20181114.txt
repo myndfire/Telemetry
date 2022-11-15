@@ -1,0 +1,4 @@
+===> 2018-11-14 20:09:17.758 -06:00 [Information:DESKTOP-Q33BETB] Starting Application
+===> 2018-11-14 20:09:21.721 -06:00 [Debug:DESKTOP-Q33BETB] LogDetails { AppName: "Test App" }
+===> 2018-11-14 20:14:09.549 -06:00 [Information:DESKTOP-Q33BETB] Starting Application
+===> 2018-11-14 20:14:13.789 -06:00 [Debug:DESKTOP-Q33BETB] LogDetails { AppName: "Test App" }

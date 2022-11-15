@@ -1,0 +1,41 @@
+2018-11-14 18:22:10.371 -06:00 [INF] Starting web host
+2018-11-14 18:22:14.482 -06:00 [INF] Hello World! A test from Serilog
+2018-11-14 18:24:19.088 -06:00 [INF] Starting web host
+2018-11-14 18:24:22.348 -06:00 [FTL] Error
+2018-11-14 18:24:22.496 -06:00 [INF] Hello World! A test from Serilog
+2018-11-14 18:40:01.961 -06:00 [INF] Starting web host
+2018-11-14 18:40:05.189 -06:00 [FTL] Error
+2018-11-14 18:40:59.110 -06:00 [INF] Starting web host
+2018-11-14 18:41:02.468 -06:00 [FTL] Error
+2018-11-14 18:42:15.117 -06:00 [INF] Starting web host
+2018-11-14 18:42:18.855 -06:00 [FTL] Error
+2018-11-14 18:43:24.641 -06:00 [INF] Starting web host
+2018-11-14 18:43:28.290 -06:00 [FTL] Error
+2018-11-14 18:44:47.341 -06:00 [INF] Starting Application
+2018-11-14 18:44:50.646 -06:00 [FTL] Error
+2018-11-14 18:50:56.329 -06:00 [INF] Starting Application
+2018-11-14 18:50:59.831 -06:00 [FTL] Error
+2018-11-14 18:51:10.821 -06:00 [INF] Starting Application
+2018-11-14 18:51:14.421 -06:00 [FTL] Error
+2018-11-14 18:51:41.767 -06:00 [INF] Starting Application
+2018-11-14 18:51:45.395 -06:00 [FTL] Error
+2018-11-14 18:52:01.680 -06:00 [INF] Starting Application
+2018-11-14 18:52:05.007 -06:00 [FTL] Error
+2018-11-14 18:52:27.609 -06:00 [INF] Starting Application
+2018-11-14 18:52:31.020 -06:00 [FTL] Error
+2018-11-14 18:52:40.652 -06:00 [INF] Starting Application
+2018-11-14 18:52:43.983 -06:00 [FTL] Error
+2018-11-14 18:53:08.043 -06:00 [INF] Starting Application
+2018-11-14 18:53:11.305 -06:00 [FTL] Error
+2018-11-14 18:58:54.650 -06:00 [INF] Starting Application
+2018-11-14 18:58:58.075 -06:00 [DBG] Hello
+2018-11-14 19:05:33.250 -06:00 [INF] Starting Application
+2018-11-14 19:05:37.002 -06:00 [DBG] Hello
+2018-11-14 19:06:19.580 -06:00 [INF] Starting Application
+2018-11-14 19:06:22.400 -06:00 [DBG] Hello
+2018-11-14 19:06:41.185 -06:00 [INF] Starting Application
+2018-11-14 19:06:44.248 -06:00 [DBG] Hello
+2018-11-14 19:09:01.857 -06:00 [INF] Starting Application
+2018-11-14 19:09:05.401 -06:00 [DBG] Api.Logging.LogDetails
+2018-11-14 19:12:54.125 -06:00 [INF] Starting Application
+2018-11-14 19:12:57.439 -06:00 [DBG] {"AppName":"Test App","$type":"LogDetails"}

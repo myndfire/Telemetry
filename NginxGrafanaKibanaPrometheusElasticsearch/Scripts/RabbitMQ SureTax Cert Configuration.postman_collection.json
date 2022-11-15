@@ -1,0 +1,950 @@
+{
+	"info": {
+		"_postman_id": "dc6f9025-8127-4a05-a879-4f1f0688601b",
+		"name": "RabbitMQ SureTax Cert Configuration",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Installation",
+			"item": [
+				{
+					"name": "Create vhost",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\"tracing\":true}"
+						},
+						"url": {
+							"raw": "{{host}}/api/vhosts/{{vhost}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"vhosts",
+								"{{vhost}}"
+							]
+						},
+						"description": "Create an individual virtual host. As a virtual host usually only has a name, you do not need an HTTP body. To enable / disable tracing, provide a body looking like:\n\n<blockquote>\n{\"tracing\":true}\n</blockquote>"
+					},
+					"response": []
+				},
+				{
+					"name": "Create a user",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"password\":\"{{userpassword}}\",\n\"tags\":\"user\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/users/{{username}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"{{username}}"
+							]
+						},
+						"description": "To create a user, you will need a body looking something like this:\n\n<blockquote>\n{\"password\":\"secret\",\"tags\":\"administrator\"}\n</blockquote>\nor:\n<blockquote>\n{<br>\n\"password_hash\":\"2lmoth8l4H0DViLaK9Fxi6l9ds8=\",<br>\n\"tags\":\"administrator\"<br>\n}\n\nThe tags key is mandatory. Either <strong>password</strong> or <strong>password_hash</strong> must be set. Setting password_hash to \"\" will ensure the user cannot use a password to log in. tags is a comma-separated list of tags for the user. Currently recognised tags are \"administrator\", \"monitoring\" and \"management\"."
+					},
+					"response": []
+				},
+				{
+					"name": "Create user permission/vhost",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"configure\":\"\",\n\"write\":\".*\",\n\"read\":\".*\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/permissions/{{vhost}}/{{username}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"permissions",
+								"{{vhost}}",
+								"{{username}}"
+							]
+						},
+						"description": "Create a permission, you will need a body looking something like this:\n\n<blockquote>\n{<br>\n\"configure\":\".*\",<br>\n\"write\":\".*\",<br>\n\"read\":\".*\"<br>\n}\n</blockquote>\n\nAll keys are mandatory."
+					},
+					"response": []
+				},
+				{
+					"name": "Create Topic Exchange on vhost",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\":\"topic\",\n    \"auto_delete\":false,\n    \"durable\":true,\n    \"internal\":false,\n    \"password\":\"{{userpassword}}\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/exchanges/{{vhost}}/{{exchange}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"exchanges",
+								"{{vhost}}",
+								"{{exchange}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Deadletter Exchange on vhost",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\":\"topic\",\n    \"auto_delete\":false,\n    \"durable\":true,\n    \"internal\":false\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/exchanges/{{vhost}}/{{deadletterexchange}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"exchanges",
+								"{{vhost}}",
+								"{{deadletterexchange}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a Item Queue",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"auto_delete\":false,\n\"durable\":true\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/queues/{{vhost}}/{{itemqueue}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"queues",
+								"{{vhost}}",
+								"{{itemqueue}}"
+							]
+						},
+						"description": "To create a queue, you will need a body looking something like this:\n\n<blockquote>\n{<br>\n\"auto_delete\":false,<br>\n\"durable\":true,<br>\n\"arguments\":{},<br>\n\"node\":\"rabbit@smacmullen\"<br>\n}\n</blockquote>\n\nAll keys are optional."
+					},
+					"response": []
+				},
+				{
+					"name": "Create a ItemExtended Queue",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"auto_delete\":false,\n\"durable\":true\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/queues/{{vhost}}/{{itemextendedqueue}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"queues",
+								"{{vhost}}",
+								"{{itemextendedqueue}}"
+							]
+						},
+						"description": "To create a queue, you will need a body looking something like this:\n\n<blockquote>\n{<br>\n\"auto_delete\":false,<br>\n\"durable\":true,<br>\n\"arguments\":{},<br>\n\"node\":\"rabbit@smacmullen\"<br>\n}\n</blockquote>\n\nAll keys are optional."
+					},
+					"response": []
+				},
+				{
+					"name": "Create a ItemMessage Queue",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"auto_delete\":false,\n\"durable\":true\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/queues/{{vhost}}/{{itemmessagequeue}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"queues",
+								"{{vhost}}",
+								"{{itemmessagequeue}}"
+							]
+						},
+						"description": "To create a queue, you will need a body looking something like this:\n\n<blockquote>\n{<br>\n\"auto_delete\":false,<br>\n\"durable\":true,<br>\n\"arguments\":{},<br>\n\"node\":\"rabbit@smacmullen\"<br>\n}\n</blockquote>\n\nAll keys are optional."
+					},
+					"response": []
+				},
+				{
+					"name": "Create a ItemTaxExemption Queue",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"auto_delete\":false,\n\"durable\":true\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/queues/{{vhost}}/{{itemtaxexemptionqueue}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"queues",
+								"{{vhost}}",
+								"{{itemtaxexemptionqueue}}"
+							]
+						},
+						"description": "To create a queue, you will need a body looking something like this:\n\n<blockquote>\n{<br>\n\"auto_delete\":false,<br>\n\"durable\":true,<br>\n\"arguments\":{},<br>\n\"node\":\"rabbit@smacmullen\"<br>\n}\n</blockquote>\n\nAll keys are optional."
+					},
+					"response": []
+				},
+				{
+					"name": "Create a Tax Queue",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"auto_delete\":false,\n\"durable\":true\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/queues/{{vhost}}/{{taxqueue}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"queues",
+								"{{vhost}}",
+								"{{taxqueue}}"
+							]
+						},
+						"description": "To create a queue, you will need a body looking something like this:\n\n<blockquote>\n{<br>\n\"auto_delete\":false,<br>\n\"durable\":true,<br>\n\"arguments\":{},<br>\n\"node\":\"rabbit@smacmullen\"<br>\n}\n</blockquote>\n\nAll keys are optional."
+					},
+					"response": []
+				},
+				{
+					"name": "Create a Tax Extended Queue",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"auto_delete\":false,\n\"durable\":true\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/queues/{{vhost}}/{{taxextendedqueue}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"queues",
+								"{{vhost}}",
+								"{{taxextendedqueue}}"
+							]
+						},
+						"description": "To create a queue, you will need a body looking something like this:\n\n<blockquote>\n{<br>\n\"auto_delete\":false,<br>\n\"durable\":true,<br>\n\"arguments\":{},<br>\n\"node\":\"rabbit@smacmullen\"<br>\n}\n</blockquote>\n\nAll keys are optional."
+					},
+					"response": []
+				},
+				{
+					"name": "Create a Tax Tier Queue",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"auto_delete\":false,\n\"durable\":true\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/queues/{{vhost}}/{{taxtierqueue}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"queues",
+								"{{vhost}}",
+								"{{taxtierqueue}}"
+							]
+						},
+						"description": "To create a queue, you will need a body looking something like this:\n\n<blockquote>\n{<br>\n\"auto_delete\":false,<br>\n\"durable\":true,<br>\n\"arguments\":{},<br>\n\"node\":\"rabbit@smacmullen\"<br>\n}\n</blockquote>\n\nAll keys are optional."
+					},
+					"response": []
+				},
+				{
+					"name": "Create a TaxCalculationLog Queue",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"auto_delete\":false,\n\"durable\":true\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/queues/{{vhost}}/{{taxcalculationlogqueue}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"queues",
+								"{{vhost}}",
+								"{{taxcalculationlogqueue}}"
+							]
+						},
+						"description": "To create a queue, you will need a body looking something like this:\n\n<blockquote>\n{<br>\n\"auto_delete\":false,<br>\n\"durable\":true,<br>\n\"arguments\":{},<br>\n\"node\":\"rabbit@smacmullen\"<br>\n}\n</blockquote>\n\nAll keys are optional."
+					},
+					"response": []
+				},
+				{
+					"name": "Create a TaxHistory Queue",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"auto_delete\":false,\n\"durable\":true\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/queues/{{vhost}}/{{taxhistoryqueue}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"queues",
+								"{{vhost}}",
+								"{{taxhistoryqueue}}"
+							]
+						},
+						"description": "To create a queue, you will need a body looking something like this:\n\n<blockquote>\n{<br>\n\"auto_delete\":false,<br>\n\"durable\":true,<br>\n\"arguments\":{},<br>\n\"node\":\"rabbit@smacmullen\"<br>\n}\n</blockquote>\n\nAll keys are optional."
+					},
+					"response": []
+				},
+				{
+					"name": "Create a TaxHistoryInternap Queue",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"auto_delete\":false,\n\"durable\":true\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/queues/{{vhost}}/{{taxhistoryinternapqueue}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"queues",
+								"{{vhost}}",
+								"{{taxhistoryinternapqueue}}"
+							]
+						},
+						"description": "To create a queue, you will need a body looking something like this:\n\n<blockquote>\n{<br>\n\"auto_delete\":false,<br>\n\"durable\":true,<br>\n\"arguments\":{},<br>\n\"node\":\"rabbit@smacmullen\"<br>\n}\n</blockquote>\n\nAll keys are optional."
+					},
+					"response": []
+				},
+				{
+					"name": "Create Item Queue Binding",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"routing_key\":\"{{itemqueue}}\",\n\"arguments\":{}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/bindings/{{vhost}}/e/{{exchange}}/q/{{itemqueue}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"bindings",
+								"{{vhost}}",
+								"e",
+								"{{exchange}}",
+								"q",
+								"{{itemqueue}}"
+							]
+						},
+						"description": "Create a new binding, POST to this URI. You will need a body looking something like this:\n\n<blockquote>\n{<br>\n\"routing_key\":\"my_routing_key\",<br>\n\"arguments\":{}<br>\n}\n</blockquote>\n\nAll keys are optional. The response will contain a Location header telling you the URI of your new binding."
+					},
+					"response": []
+				},
+				{
+					"name": "Create ItemExtended Queue Binding",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"routing_key\":\"{{itemextendedqueue}}\",\n\"arguments\":{}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/bindings/{{vhost}}/e/{{exchange}}/q/{{itemextendedqueue}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"bindings",
+								"{{vhost}}",
+								"e",
+								"{{exchange}}",
+								"q",
+								"{{itemextendedqueue}}"
+							]
+						},
+						"description": "Create a new binding, POST to this URI. You will need a body looking something like this:\n\n<blockquote>\n{<br>\n\"routing_key\":\"my_routing_key\",<br>\n\"arguments\":{}<br>\n}\n</blockquote>\n\nAll keys are optional. The response will contain a Location header telling you the URI of your new binding."
+					},
+					"response": []
+				},
+				{
+					"name": "Create ItemMessage Queue Binding",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"routing_key\":\"{{itemmessagequeue}}\",\n\"arguments\":{}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/bindings/{{vhost}}/e/{{exchange}}/q/{{itemmessagequeue}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"bindings",
+								"{{vhost}}",
+								"e",
+								"{{exchange}}",
+								"q",
+								"{{itemmessagequeue}}"
+							]
+						},
+						"description": "Create a new binding, POST to this URI. You will need a body looking something like this:\n\n<blockquote>\n{<br>\n\"routing_key\":\"my_routing_key\",<br>\n\"arguments\":{}<br>\n}\n</blockquote>\n\nAll keys are optional. The response will contain a Location header telling you the URI of your new binding."
+					},
+					"response": []
+				},
+				{
+					"name": "Create ItemExemption Queue Binding",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"routing_key\":\"{{itemtaxexemptionqueue}}\",\n\"arguments\":{}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/bindings/{{vhost}}/e/{{exchange}}/q/{{itemtaxexemptionqueue}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"bindings",
+								"{{vhost}}",
+								"e",
+								"{{exchange}}",
+								"q",
+								"{{itemtaxexemptionqueue}}"
+							]
+						},
+						"description": "Create a new binding, POST to this URI. You will need a body looking something like this:\n\n<blockquote>\n{<br>\n\"routing_key\":\"my_routing_key\",<br>\n\"arguments\":{}<br>\n}\n</blockquote>\n\nAll keys are optional. The response will contain a Location header telling you the URI of your new binding."
+					},
+					"response": []
+				},
+				{
+					"name": "Create Tax Queue Binding",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"routing_key\":\"{{taxqueue}}\",\n\"arguments\":{}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/bindings/{{vhost}}/e/{{exchange}}/q/{{taxqueue}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"bindings",
+								"{{vhost}}",
+								"e",
+								"{{exchange}}",
+								"q",
+								"{{taxqueue}}"
+							]
+						},
+						"description": "Create a new binding, POST to this URI. You will need a body looking something like this:\n\n<blockquote>\n{<br>\n\"routing_key\":\"my_routing_key\",<br>\n\"arguments\":{}<br>\n}\n</blockquote>\n\nAll keys are optional. The response will contain a Location header telling you the URI of your new binding."
+					},
+					"response": []
+				},
+				{
+					"name": "Create TaxExtended Queue Binding",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"routing_key\":\"{{taxextendedqueue}}\",\n\"arguments\":{}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/bindings/{{vhost}}/e/{{exchange}}/q/{{taxextendedqueue}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"bindings",
+								"{{vhost}}",
+								"e",
+								"{{exchange}}",
+								"q",
+								"{{taxextendedqueue}}"
+							]
+						},
+						"description": "Create a new binding, POST to this URI. You will need a body looking something like this:\n\n<blockquote>\n{<br>\n\"routing_key\":\"my_routing_key\",<br>\n\"arguments\":{}<br>\n}\n</blockquote>\n\nAll keys are optional. The response will contain a Location header telling you the URI of your new binding."
+					},
+					"response": []
+				},
+				{
+					"name": "Create TaxTier Queue Binding",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"routing_key\":\"{{taxtierqueue}}\",\n\"arguments\":{}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/bindings/{{vhost}}/e/{{exchange}}/q/{{taxtierqueue}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"bindings",
+								"{{vhost}}",
+								"e",
+								"{{exchange}}",
+								"q",
+								"{{taxtierqueue}}"
+							]
+						},
+						"description": "Create a new binding, POST to this URI. You will need a body looking something like this:\n\n<blockquote>\n{<br>\n\"routing_key\":\"my_routing_key\",<br>\n\"arguments\":{}<br>\n}\n</blockquote>\n\nAll keys are optional. The response will contain a Location header telling you the URI of your new binding."
+					},
+					"response": []
+				},
+				{
+					"name": "Create TaxCalculationLog Queue Binding",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"routing_key\":\"{{taxcalculationlogqueue}}\",\n\"arguments\":{}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/bindings/{{vhost}}/e/{{exchange}}/q/{{taxcalculationlogqueue}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"bindings",
+								"{{vhost}}",
+								"e",
+								"{{exchange}}",
+								"q",
+								"{{taxcalculationlogqueue}}"
+							]
+						},
+						"description": "Create a new binding, POST to this URI. You will need a body looking something like this:\n\n<blockquote>\n{<br>\n\"routing_key\":\"my_routing_key\",<br>\n\"arguments\":{}<br>\n}\n</blockquote>\n\nAll keys are optional. The response will contain a Location header telling you the URI of your new binding."
+					},
+					"response": []
+				},
+				{
+					"name": "Create TaxHistory Queue Binding",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"routing_key\":\"{{taxhistoryqueue}}\",\n\"arguments\":{}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/bindings/{{vhost}}/e/{{exchange}}/q/{{taxhistoryqueue}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"bindings",
+								"{{vhost}}",
+								"e",
+								"{{exchange}}",
+								"q",
+								"{{taxhistoryqueue}}"
+							]
+						},
+						"description": "Create a new binding, POST to this URI. You will need a body looking something like this:\n\n<blockquote>\n{<br>\n\"routing_key\":\"my_routing_key\",<br>\n\"arguments\":{}<br>\n}\n</blockquote>\n\nAll keys are optional. The response will contain a Location header telling you the URI of your new binding."
+					},
+					"response": []
+				},
+				{
+					"name": "Create TaxHistoryInternap Queue Binding",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\"routing_key\":\"{{taxhistoryinternapqueue}}\",\n\"arguments\":{}\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/bindings/{{vhost}}/e/{{exchange}}/q/{{taxhistoryinternapqueue}}",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"bindings",
+								"{{vhost}}",
+								"e",
+								"{{exchange}}",
+								"q",
+								"{{taxhistoryinternapqueue}}"
+							]
+						},
+						"description": "Create a new binding, POST to this URI. You will need a body looking something like this:\n\n<blockquote>\n{<br>\n\"routing_key\":\"my_routing_key\",<br>\n\"arguments\":{}<br>\n}\n</blockquote>\n\nAll keys are optional. The response will contain a Location header telling you the URI of your new binding."
+					},
+					"response": []
+				},
+				{
+					"name": "List of all bindings",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth}}"
+							}
+						],
+						"url": {
+							"raw": "{{host}}/api/bindings",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"bindings"
+							]
+						},
+						"description": "A list of all bindings."
+					},
+					"response": []
+				},
+				{
+					"name": "Create a Lazy Queue Policy",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{auth}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": " {\n\"pattern\":\"^TransactionResult.\",\n\"definition\": {\n\"queue-mode\":\"lazy\"\n}, \n\"priority\":1,\n\"apply-to\": \"queues\"\n}"
+						},
+						"url": {
+							"raw": "{{host}}/api/policies/{{vhost}}/Transaction%20Queue%20Lazy%20Policy",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"policies",
+								"{{vhost}}",
+								"Transaction%20Queue%20Lazy%20Policy"
+							]
+						},
+						"description": "To create a policy, you will need a body looking something like this:\n\n<blockquote>\n{<br>\n\"pattern\":\"^amq.\",<br>\n\"definition\": {<br>\n     \"federation-upstream-set\":\"all\"<br>\n}, <br>\n\"priority\":0, <br>\n\"apply-to\": \"all\"<br>\n}\n<blockquote>\npattern and definition are mandatory, priority and apply-to are optional."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

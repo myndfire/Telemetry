@@ -1,0 +1,130 @@
+version: '3.4'
+
+networks:
+  tracing:
+    name: tracing-network
+    
+services:
+
+  # back-ends
+  
+  #zipkin-all-in-one:
+  #  image: openzipkin/zipkin:latest
+  #  ports:
+  #    - "9411:9411"
+  #  networks:
+  #    - tracing
+
+  prometheus:
+    container_name: prometheus
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus.yaml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+    networks:
+      - tracing
+
+  seq:
+    image: "datalust/seq:latest"
+    restart: unless-stopped
+    hostname: "seq"
+    ports:
+      - "5341:80"
+    labels:
+      NAME: "seq"
+    environment:
+      - ACCEPT_EULA=Y
+    networks:
+      - tracing
+      
+  rabbitmq:
+    image: rabbitmq:3.6.15-management
+    ports:
+      - 15672:15672
+      - 5672:5672
+      - 5671:5671
+    networks:
+      - tracing
+
+  sqlserver:
+    image: "mcr.microsoft.com/azure-sql-edge"
+    environment:
+      ACCEPT_EULA: "Y"
+      MSSQL_SA_PASSWORD: "Pass@Word1"
+#      MSSQL_PID: "Developer"
+      MSSQL_USER: "sa"
+
+#    image: mcr.microsoft.com/mssql/server:2019-GA-ubuntu-16.04
+#    environment:
+#      - ACCEPT_EULA=Y
+#      - SA_PASSWORD=Pass@Word1
+    ports:
+      - 1433:1433
+    networks:
+      - tracing
+
+#  redis:
+#    image: redis:6.2.1
+#    ports:
+#    - 6379:6379
+#    networks:
+#      - tracing
+
+#  redis-commander:
+#    container_name: redis-commander
+#    hostname: redis-commander
+#    image: rediscommander/redis-commander:latest
+#    restart: always
+#    environment:
+#    - REDIS_HOSTS=local:redis:6379
+#    ports:
+#    - "8081:8081"
+#    networks:
+#      - tracing
+      
+  elasticsearch:
+    image: docker.elastic.co/elasticsearch/elasticsearch:7.17.0
+    environment:
+      - discovery.type=single-node
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    networks:
+      - tracing
+
+ # kibana:
+ #   depends_on:
+ #   - elasticsearch
+ #   environment:
+ #     #ELASTICSEARCH_PASSWORD: changeme
+ #     ELASTICSEARCH_URL: http://elasticsearch:9200
+ #     #ELASTICSEARCH_USERNAME: elastic
+ #   image: docker.elastic.co/kibana/kibana:7.17.0
+ #   networks:
+ #     - tracing
+ #   ports:
+ #   - 5601:5601
+ #   restart: unless-stopped
+
+
+  jaeger:
+    image: jaegertracing/all-in-one
+    container_name: jaeger
+    restart: unless-stopped
+    ports:
+      - 5775:5775/udp
+      - 5778:5778
+      - 6831:6831/udp
+      - 6832:6832/udp
+      - 9411:9411
+      - 14268:14268
+      - 16686:16686
+    environment:
+      - SPAN_STORAGE_TYPE=elasticsearch
+      - ES_SERVER_URLS=http://elasticsearch:9200
+    networks:
+      - tracing
+    deploy:
+      restart_policy: #bad workaround, just for demo only !!
+        condition: on-failure

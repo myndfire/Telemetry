@@ -1,0 +1,30 @@
+
+Create C:\WK\SureTax\Applications
+Create C:\WK\SureTax\Download
+
+Run DownloadBinaries.ps1
+
+Install Dotnet Core from downloaded folder and accept all default values
+
+Install Erlang from downloaded folder and accept all default values
+
+Install RabbitMQ from downloaded folder and accept all default values
+
+Open a new Powershell terminal as Administrator
+
+Modify the variables in ConfigureRabbitMQ.ps1 to match folders created above
+$downloadroot = 'C:\WK\SureTax\Download'
+$appinstallroot = 'C:\WK\SureTax\Applications'
+
+Run ConfigureRabbitMQ.ps1
+
+Verify Data folder exists in $appinstallroot\rabbitmq folder
+Verify Plugins Enabled
+Verify Management Console from browser
+Verify login suretax-admin/SureT@xadmin2019
+Verify localhost:15692/metrics
+
+Open a new Powershell terminal as Administrator
+Run InstallPostman.ps1
+Import Postman Collection/Environment
+Run Steps in Collection

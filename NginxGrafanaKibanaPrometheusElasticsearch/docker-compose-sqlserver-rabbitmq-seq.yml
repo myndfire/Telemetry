@@ -1,0 +1,66 @@
+version: '3'
+
+services:
+    mssql-server2019:
+        image: mcr.microsoft.com/mssql/server:2019-GA-ubuntu-16.04
+        container_name: sql01
+        hostname: sql01
+        environment:
+           - ACCEPT_EULA=Y
+           - MSSQL_PID=Developer
+           - SA_PASSWORD=GEps2006!
+        ports:
+            - "1461:1433"
+        volumes: 
+            - c:\sqlbackup:/var/opt/mssql/data
+        networks:
+            backend:
+                ipv4_address: 172.28.1.3
+                
+    rabbitmq:
+        image: 'rabbitmq:3-management'
+        hostname: rabbitmq
+        container_name: rabbitmq
+        ports:
+            - '15672:15672'
+            - '5672:5672'
+        labels:
+            name: rabbitmq
+        volumes:
+            - c:\demo\rabbitmq-isolated.conf:/etc/rabbitmq/rabbitmq.config
+            #- c:\RabbitMQ\data:/var/lib/rabbitmq
+            #- c:\RabbitMQ\mnesia:/var/lib/rabbitmq/mnesia
+        depends_on:
+             - mssql-server2019
+        networks:
+            backend:
+                ipv4_address: 172.28.1.4
+
+    datalustseq:
+        image: datalust/seq:latest
+        hostname: datalust
+        environment:
+           -  ACCEPT_EULA=Y 
+        volumes:
+           - c:\lustdata:/data 
+        ports:
+            #- '80:80'
+            - '5341:80' 
+        depends_on:
+             - mssql-server2019     
+             - rabbitmq
+       
+        networks:
+            backend:
+                ipv4_address: 172.28.1.5
+  
+networks:
+    backend:
+        driver: bridge
+        ipam:
+            driver: default
+            config:
+                - subnet: 172.28.0.0/16 
+                
+                
+                

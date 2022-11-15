@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2042
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Serilog.Elasticsearch", "Serilog.Elasticsearch\Serilog.Elasticsearch.csproj", "{463B7B49-D2ED-4D5E-AA05-863242B40BA2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Api.Logging", "Api.Logging\Api.Logging.csproj", "{AF27894A-70BD-4EF5-B547-4074EABB4ADD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{463B7B49-D2ED-4D5E-AA05-863242B40BA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{463B7B49-D2ED-4D5E-AA05-863242B40BA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{463B7B49-D2ED-4D5E-AA05-863242B40BA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{463B7B49-D2ED-4D5E-AA05-863242B40BA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF27894A-70BD-4EF5-B547-4074EABB4ADD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF27894A-70BD-4EF5-B547-4074EABB4ADD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF27894A-70BD-4EF5-B547-4074EABB4ADD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF27894A-70BD-4EF5-B547-4074EABB4ADD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5D7F51FB-D5C8-404B-B9D4-BEB6D99E35AE}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,58 @@
+global:
+  scrape_interval:     15s
+  evaluation_interval: 15s
+
+rule_files:
+  # - "first.rules"
+  # - "second.rules"
+
+scrape_configs:
+# ===========  Prometheus Metrics ==================
+  - job_name: prometheus
+    static_configs:
+      - targets: ['localhost:9090']
+      
+      
+# ===========  Node Metrics ==================      
+  - job_name: VM-dev-10.229.12.36
+    scrape_interval: 15s
+    static_configs:
+      - targets: ['10.229.12.36:9182'] #DEV: Engine
+        labels:
+            group: 'Env:Dev'
+            
+  - job_name: VM-dev-10.229.12.37
+    scrape_interval: 15s
+    static_configs:
+      - targets: ['10.229.12.37:9182'] #DEV: BulkInsert Tool
+        labels:
+            group: 'Env:Dev'     
+            
+  - job_name: VM-qa-10.232.107.36 
+    scrape_interval: 15s
+    static_configs:
+      - targets: ['10.232.107.36:9182'] #QA: Engine
+        labels:
+            group: 'Env:QA'
+
+            
+# ===========  Rabbit MQ Metrics ==================
+  - job_name: rabbitmq-qa-10.232.107.36     
+    static_configs:
+      # QA Environment Settings
+      - targets: ['10.232.107.36:15692'] #QA:RabbitMQ
+        labels:
+          group: 'Env:QA'
+          
+  - job_name: rabbitmq-dev-10.229.12.36
+    # Override the global default and scrape targets from this job every 5 seconds.
+    static_configs:
+      # Dev Environment Settings
+      - targets: ['10.229.12.36:15692'] #DEV:RabbitMQ
+        labels:
+          group: 'Env:Dev'
+          
+
+    
+
+        

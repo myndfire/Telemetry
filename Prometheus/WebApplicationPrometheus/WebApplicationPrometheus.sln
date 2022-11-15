@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29519.181
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplicationPrometheus", "WebApplicationPrometheus\WebApplicationPrometheus.csproj", "{DCF10E7D-8330-443E-AD47-FC6E9C44C62C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{DCF10E7D-8330-443E-AD47-FC6E9C44C62C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCF10E7D-8330-443E-AD47-FC6E9C44C62C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCF10E7D-8330-443E-AD47-FC6E9C44C62C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCF10E7D-8330-443E-AD47-FC6E9C44C62C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {527A2A4C-A7E5-4A99-A2E4-DA115A048A89}
+	EndGlobalSection
+EndGlobal

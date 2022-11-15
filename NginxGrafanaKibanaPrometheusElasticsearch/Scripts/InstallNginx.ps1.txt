@@ -1,0 +1,60 @@
+
+$downloadroot = 'C:\WK\SureTax\Download'
+$toolsinstallroot = 'C:\WK\SureTax\Tools'
+$nssm="$toolsinstallroot\nssm\nssm-2.24\win64\nssm.exe"
+$prometheus="$toolsinstallroot\prometheus\prometheus-2.18.1.windows-amd64\prometheus.exe"
+
+function install7zip()
+{
+    param ($downloadroot)
+	Start-Process -Wait -FilePath "$downloadroot\7z1900-x64.msi";
+	Write-Host "Installing 7Zip Completed" -ForegroundColor Green
+
+}
+function unzipNssm()
+{
+    param ($downloadroot,$toolsinstallroot)
+		$appdir = "$toolsinstallroot\nssm"
+		New-Item -ItemType Directory -Force -Path $appdir
+		expand-archive -Force -path $downloadroot\nssm-2.24.zip -destinationpath $appdir 		
+        Copy-Item -Force -Path "$toolsinstallroot\nssm\nssm-2.24\win64\nssm.exe" -Destination "$appdir\nssm.exe"	
+	    Write-Host "Installing nssm Completed" -ForegroundColor Green		
+}
+
+function unzipNginx()
+{
+    param ($downloadroot,$toolsinstallroot)
+
+		$appdir = "$toolsinstallroot\nginx"
+		$nginx="$appdir\nginx-1.18.0\nginx.exe"
+		New-Item -ItemType Directory -Force -Path $appdir
+		set-alias sz "$env:ProgramFiles\7-Zip\7z.exe"
+
+        & sz x $downloadroot\nginx-1.18.0.zip "-o$($appdir)" -y		
+		Copy-Item -Force -Path "$toolsinstallroot\nssm\nssm-2.24\win64\nssm.exe" -Destination "$appdir\nginx-1.18.0\nssm.exe"
+		#Start-Process -FilePath $nssm -ArgumentList @('install', 'Nginx',$nginx ) -Wait
+	    Write-Host "Installing nginx Completed" -ForegroundColor Green		
+}
+#install7zip -downloadroot $downloadroot -toolsinstallroot $toolsinstallroot
+unzipNssm -downloadroot $downloadroot -toolsinstallroot $toolsinstallroot
+unzipNginx -downloadroot $downloadroot -toolsinstallroot $toolsinstallroot
+
+#--------------  DO THIS AFTER RUNNING THIS SCRIPT !!!! --------------------
+#1. Update Grafana defaults.ini
+# root_url = %(protocol)s://%(domain)s:%(http_port)s/grafana
+
+#2. Update kibana.yml
+#server.basePath: "/kibana"
+
+#3. Replace nginx.conf and files in html folder
+
+#4. Start nginx from C:\WK\SureTax\Tools\nginx\nginx-1.18.0
+>start nginx
+
+#4. >nssm install nginx-1.18.0  C:\WK\SureTax\Tools\nginx\nginx-1.18.0\nginx.exe
+
+#nginx -s stop	fast shutdown
+#nginx -s quit	graceful shutdown
+#nginx -s reload	changing configuration, starting new worker processes with a new configuration, graceful shutdown of old worker processes
+#nginx -s reopen	re-opening log files
+#Make sure the service restart is configured for 
